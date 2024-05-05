@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest Movies</title>
+
+</head>
+<body>
+    <ul class="latestmovieslist">
+
+    </ul>
+<script>
+
+const apiKey = '6dc4617f';
+const apiUrl = 'http://www.omdbapi.com/';
+const currentYear = new Date().getFullYear();
+
+// Example: Get popular movies released in the current year
+fetch(`${apiUrl}?apikey=${apiKey}&s=a&y=${2023}&page=1`)
+  .then(response => response.json())
+  .then(data => {
+    if (data.Search) {
+      const popularMovies = data.Search.map(movie => movie.Title);
+      console.log('Popular Movies:', data.Search);
+    } else {
+      console.log(data);
+    }
+  })
+  .catch(error => console.error('Error:', error));
+    function searchfunction(a,b,c){
+      if (!a=='') {
+         b.innerHTML=`<div class="loader"></div>`;
+         const searchdata= a;
+         fetch(`http://www.omdbapi.com/?apikey=6dc4617f&s=${searchdata}&page=${c}`)
+            .then((response) => response.json())
+            .then((data) => {
+               b.innerHTML=`<div class="loader" hidden></div>`;
+               data.Search.forEach(item=>{
+                  const {Poster,Title,Type,Year}=item;
+                  const card=document.createElement('div');
+                  card.innerHTML=`
+                  
+                     <img src="${Poster}" style="--d:0;">
+                     <p>
+                     <a onclick="getMovieName('${Title}')" href="detail.html" target="_moviepage">${Title}</a>
+                     </p>
+                     <p>
+                        Type: ${Type}<br>
+                        Year: ${Year}
+                     </p>
+                  
+                  `;
+                  b.append(card);
+               })
+            })
+            .catch(error=>b.innerHTML=error);
+      }
+      else
+      {
+         searchdisplay.innerHTML=`Nothing here`;  
+      }
+   }
+
+</script>
+</body>
+</html>
