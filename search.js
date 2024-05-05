@@ -45,7 +45,7 @@ function searchfunction(a,b,c){
       if (!a=='') {
          b.innerHTML=`<div class="loader"></div>`;
          const searchdata= a;
-         fetch(`http://www.omdbapi.com/?apikey=6dc4617f&s=${searchdata}&page=${c}`)
+         fetch(`https://www.omdbapi.com/?apikey=6dc4617f&s=${searchdata}&page=${c}`)
             .then((response) => response.json())
             .then((data) => {
                b.innerHTML=`<div class="loader" hidden></div>`;
